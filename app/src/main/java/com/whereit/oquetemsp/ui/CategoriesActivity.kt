@@ -1,59 +1,29 @@
 package com.whereit.oquetemsp.ui
 
-
-import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.whereit.oquetemsp.R
-import com.whereit.oquetemsp.domain.Categories
 import com.whereit.oquetemsp.domain.InterestingPoint
+import kotlinx.android.synthetic.main.activity_categories.*
 
-/**
- * A simple [Fragment] subclass.
- */
-class ExplorarFragment : Fragment(), ExploringPointsAdapter.ExploringPointsClick {
+class CategoriesActivity : AppCompatActivity() {
 
-
-    lateinit var instance: View
-    lateinit var exploringAdapter: ExploringPointsAdapter
-    lateinit var categoriesAdapter: CategoriesAdapter
     lateinit var pointsList: MutableList<InterestingPoint>
-    lateinit var categories: MutableList<Categories>
-    lateinit var recyclerExplorar: RecyclerView
-    lateinit var recyclerCategories: RecyclerView
-    lateinit var txtSeeMoreCategory: TextView
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        instance = inflater.inflate(R.layout.fragment_explorar, container, false)
+    lateinit var categoriesActivityAdapter: CategoriesActivityAdapter
 
-        recyclerExplorar = instance.findViewById(R.id.recyclerExplorar)
-        recyclerCategories = instance.findViewById(R.id.recyclerCategories)
-        txtSeeMoreCategory = instance.findViewById(R.id.txtSeeMoreCategory)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_categories)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = ""
 
-        txtSeeMoreCategory.setOnClickListener {
-            startActivity(Intent(activity, CategoriasFullActivity::class.java))
-
-        }
-
-
-        recyclerExplorar.layoutManager =
-            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        recyclerCategories.layoutManager =
-            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        recyclerCategories.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false)
 
 
         pointsList = mutableListOf()
-        categories = mutableListOf()
+
 
         val point1 = InterestingPoint(
             "Parque do Ibirapuera",
@@ -131,49 +101,7 @@ class ExplorarFragment : Fragment(), ExploringPointsAdapter.ExploringPointsClick
         )
         pointsList.add(point4)
 
-        exploringAdapter = ExploringPointsAdapter(pointsList, this)
-        recyclerExplorar.adapter = exploringAdapter
-
-
-        val category6 = Categories(
-            "Edíficios",
-            "https://arquiteturaurbanismotodos.org.br/wp-content/uploads/2018/01/banespa%CC%83o-890x395_c.png"
-        )
-        categories.add(category6)
-
-        val category7 = Categories(
-            "Igrejas",
-            "https://abrilviagemeturismo.files.wordpress.com/2016/10/catedral-da-se-em-sao-paulo-sp.jpeg?quality=70&strip=info&w=919"
-        )
-        categories.add(category7)
-
-
-        val category4 = Categories(
-            "Museus",
-            "https://i0.wp.com/www.conhecendomuseus.com.br/wp-content/uploads/2016/08/mam.jpg?resize=720%2C350"
-        )
-        categories.add(category4)
-
-
-        val category1 = Categories(
-            "Parques",
-            "https://checkinsaopaulo.com/wp-content/uploads/2016/07/Capa-1.jpg"
-        )
-        categories.add(category1)
-
-        categoriesAdapter = CategoriesAdapter(categories)
-        recyclerCategories.adapter = categoriesAdapter
-
-        return instance
+        categoriesActivityAdapter = CategoriesActivityAdapter(pointsList)
+        recyclerCategories.adapter = categoriesActivityAdapter
     }
-
-    override fun onClick(interestingPoint: InterestingPoint) {
-
-        var intent = Intent(activity, InterestingPointDetailActivity::class.java)
-        intent.putExtra(getString(R.string.interesting_point), interestingPoint)
-        startActivity(intent)
-
-    }
-
-
 }

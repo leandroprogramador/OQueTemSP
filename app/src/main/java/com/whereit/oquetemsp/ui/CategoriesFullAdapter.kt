@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.explore_categories_itens.view.*
 import kotlinx.android.synthetic.main.explore_categories_itens.view.txtTitulo
 import java.lang.Exception
 
-class CategoriesFullAdapter(var categories: List<Categories>) :
+class CategoriesFullAdapter(var categories: List<Categories>, var iCategoriaClick: ICategoriaClick) :
     RecyclerView.Adapter<CategoriesFullAdapter.CategoriesFullViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -39,9 +39,20 @@ class CategoriesFullAdapter(var categories: List<Categories>) :
         }
     }
 
-    class CategoriesFullViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class CategoriesFullViewHolder : RecyclerView.ViewHolder {
         val titleCategory = itemView.txtTitulo
         val imgCategory = itemView.imgCategory
 
+
+        constructor(itemView: View) : super(itemView){
+            itemView.setOnClickListener {
+                iCategoriaClick.onClick(categories[layoutPosition])
+            }
+        }
+
+    }
+
+    interface ICategoriaClick{
+        fun onClick(category : Categories)
     }
 }

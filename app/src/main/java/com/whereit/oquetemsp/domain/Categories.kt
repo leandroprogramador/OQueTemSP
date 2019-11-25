@@ -1,4 +1,6 @@
 package com.whereit.oquetemsp.domain
 
-class Categories(var category : String, var image : String) {
+import java.io.Serializable
+
+class Categories(var category : String, var image : String) : Serializable {
 }

@@ -51,6 +51,7 @@ class InterestingPointDetailActivity : AppCompatActivity(), OnMapReadyCallback {
 
         txtTitle.text = interestingPoint.pointTitle
         Picasso.get().load(interestingPoint.image).into(backdrop)
+        txtAddress.setText(interestingPoint.address)
         txtDescription.text = interestingPoint.resume
 
         txtSeeMoreDescription.setOnClickListener {

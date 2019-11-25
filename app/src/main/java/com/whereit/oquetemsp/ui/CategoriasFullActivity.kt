@@ -1,5 +1,6 @@
 package com.whereit.oquetemsp.ui
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -12,7 +13,8 @@ import com.whereit.oquetemsp.R
 import com.whereit.oquetemsp.domain.Categories
 import kotlinx.android.synthetic.main.activity_categorias_full.*
 
-class CategoriasFullActivity : AppCompatActivity() {
+class CategoriasFullActivity : AppCompatActivity(), CategoriesFullAdapter.ICategoriaClick {
+
 
 
     lateinit var categoriesAdapter: CategoriesFullAdapter
@@ -77,7 +79,13 @@ class CategoriasFullActivity : AppCompatActivity() {
         )
         categories.add(category1)
 
-        categoriesAdapter = CategoriesFullAdapter(categories)
+        categoriesAdapter = CategoriesFullAdapter(categories, this@CategoriasFullActivity)
         recyclerCategories.adapter = categoriesAdapter
+    }
+
+    override fun onClick(category: Categories) {
+        val intent : Intent = Intent(this@CategoriasFullActivity, CategoriesActivity::class.java)
+        intent.putExtra(getString(R.string.categories), category)
+        startActivity(intent)
     }
 }

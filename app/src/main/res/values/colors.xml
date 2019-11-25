@@ -8,4 +8,5 @@
     <color name="colorWhite">#FFF</color>
     <color name="colorDarkerGrey">#343434</color>
     <color name="colorTextDescription">#9BA5AD</color>
+    <color name="colorFullTransparent">#00000000</color>
 </resources>
